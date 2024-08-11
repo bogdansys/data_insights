@@ -22,5 +22,4 @@ export default defineConfig({
       },
     ],
   },
-  base: "/data_insights/", // repository name
 });
