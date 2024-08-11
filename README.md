@@ -34,3 +34,5 @@ To run this project on your local machine:
 - Lucide React icons
 
 Enjoy exploring your data with ML and Data Insights Hub!
+# Deployed version
+https://data-insights-silk.vercel.app/
