@@ -87,5 +87,6 @@
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.4",
     "vite": "^5.1.4"
-  }
+  },
+  "homepage": "https://bogdansys.github.io/data_insights"
 }
