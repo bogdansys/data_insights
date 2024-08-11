@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const DataFiltering = ({ data, setData }) => {
-  const [selectedColumn, setSelectedColumn] = useState('');
-  const [filterValue, setFilterValue] = useState('');
+  const [selectedColumn, setSelectedColumn] = useState("");
+  const [filterValue, setFilterValue] = useState("");
 
   const applyFilter = () => {
     if (!data || !selectedColumn || !filterValue) return;
@@ -14,7 +25,9 @@ const DataFiltering = ({ data, setData }) => {
     const columnIndex = data[0].indexOf(selectedColumn);
     const filteredData = [
       data[0],
-      ...data.slice(1).filter(row => row[columnIndex].toString().includes(filterValue))
+      ...data
+        .slice(1)
+        .filter((row) => row[columnIndex].toString().includes(filterValue)),
     ];
 
     setData(filteredData);
@@ -30,9 +43,12 @@ const DataFiltering = ({ data, setData }) => {
                 <SelectValue placeholder="Select a column to filter" />
               </SelectTrigger>
               <SelectContent>
-                {data && data[0].map((header, index) => (
-                  <SelectItem key={index} value={header}>{header}</SelectItem>
-                ))}
+                {data &&
+                  data[0].map((header, index) => (
+                    <SelectItem key={index} value={header}>
+                      {header}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
           </TooltipTrigger>

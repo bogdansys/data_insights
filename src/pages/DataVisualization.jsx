@@ -1,15 +1,51 @@
-import { useState, useEffect } from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useState, useEffect } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { BarChart, Bar, ScatterChart, Scatter, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  ScatterChart,
+  Scatter,
+  LineChart,
+  Line,
+  AreaChart,
+  Area,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const DataVisualization = ({ data }) => {
-  const [chartType, setChartType] = useState('bar');
-  const [selectedColumn, setSelectedColumn] = useState('');
-  const [selectedColumnX, setSelectedColumnX] = useState('');
-  const [selectedColumnY, setSelectedColumnY] = useState('');
+  const [chartType, setChartType] = useState("bar");
+  const [selectedColumn, setSelectedColumn] = useState("");
+  const [selectedColumnX, setSelectedColumnX] = useState("");
+  const [selectedColumnY, setSelectedColumnY] = useState("");
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
@@ -17,28 +53,42 @@ const DataVisualization = ({ data }) => {
       const columnIndex = data[0].indexOf(selectedColumn);
       if (columnIndex === -1) return;
 
-      const columnData = data.slice(1).map(row => row[columnIndex]);
+      const columnData = data.slice(1).map((row) => row[columnIndex]);
 
       switch (chartType) {
-        case 'bar':
-        case 'pie':
+        case "bar":
+        case "pie":
           const frequencyMap = columnData.reduce((acc, value) => {
             acc[value] = (acc[value] || 0) + 1;
             return acc;
           }, {});
-          setChartData(Object.entries(frequencyMap).map(([value, count]) => ({ value, count })));
+          setChartData(
+            Object.entries(frequencyMap).map(([value, count]) => ({
+              value,
+              count,
+            })),
+          );
           break;
-        case 'line':
-          setChartData(columnData.map((value, index) => ({ index, value: parseFloat(value) })).filter(item => !isNaN(item.value)));
+        case "line":
+          setChartData(
+            columnData
+              .map((value, index) => ({ index, value: parseFloat(value) }))
+              .filter((item) => !isNaN(item.value)),
+          );
           break;
-        case 'scatter':
+        case "scatter":
           if (selectedColumnX && selectedColumnY) {
             const columnIndexX = data[0].indexOf(selectedColumnX);
             const columnIndexY = data[0].indexOf(selectedColumnY);
-            setChartData(data.slice(1).map(row => ({
-              x: parseFloat(row[columnIndexX]),
-              y: parseFloat(row[columnIndexY])
-            })).filter(point => !isNaN(point.x) && !isNaN(point.y)));
+            setChartData(
+              data
+                .slice(1)
+                .map((row) => ({
+                  x: parseFloat(row[columnIndexX]),
+                  y: parseFloat(row[columnIndexY]),
+                }))
+                .filter((point) => !isNaN(point.x) && !isNaN(point.y)),
+            );
           }
           break;
       }
@@ -79,32 +129,40 @@ const DataVisualization = ({ data }) => {
             <DialogHeader>
               <DialogTitle>How Data Visualization Works</DialogTitle>
               <DialogDescription>
-                1. Select a chart type from the dropdown menu.<br/>
-                2. Choose the column(s) you want to visualize.<br/>
-                3. The system processes the data and creates the chart.<br/>
-                4. The chart is displayed using the Recharts library.<br/>
-                5. You can interact with the chart (hover, zoom, etc.).<br/>
-                6. Different chart types are suitable for different data types and relationships.
+                1. Select a chart type from the dropdown menu.
+                <br />
+                2. Choose the column(s) you want to visualize.
+                <br />
+                3. The system processes the data and creates the chart.
+                <br />
+                4. The chart is displayed using the Recharts library.
+                <br />
+                5. You can interact with the chart (hover, zoom, etc.).
+                <br />
+                6. Different chart types are suitable for different data types
+                and relationships.
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
         </Dialog>
       </div>
 
-      {['bar', 'pie', 'line'].includes(chartType) && (
+      {["bar", "pie", "line"].includes(chartType) && (
         <Select onValueChange={setSelectedColumn}>
           <SelectTrigger>
             <SelectValue placeholder="Select a column" />
           </SelectTrigger>
           <SelectContent>
             {data[0].map((header, index) => (
-              <SelectItem key={index} value={header}>{header}</SelectItem>
+              <SelectItem key={index} value={header}>
+                {header}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
       )}
 
-      {chartType === 'scatter' && (
+      {chartType === "scatter" && (
         <>
           <Select onValueChange={setSelectedColumnX}>
             <SelectTrigger>
@@ -112,7 +170,9 @@ const DataVisualization = ({ data }) => {
             </SelectTrigger>
             <SelectContent>
               {data[0].map((header, index) => (
-                <SelectItem key={index} value={header}>{header}</SelectItem>
+                <SelectItem key={index} value={header}>
+                  {header}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -122,7 +182,9 @@ const DataVisualization = ({ data }) => {
             </SelectTrigger>
             <SelectContent>
               {data[0].map((header, index) => (
-                <SelectItem key={index} value={header}>{header}</SelectItem>
+                <SelectItem key={index} value={header}>
+                  {header}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -131,7 +193,7 @@ const DataVisualization = ({ data }) => {
 
       {chartData.length > 0 && (
         <ResponsiveContainer width="100%" height={400}>
-          {chartType === 'bar' && (
+          {chartType === "bar" && (
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="value" />
@@ -141,17 +203,21 @@ const DataVisualization = ({ data }) => {
               <Bar dataKey="count" fill="#8884d8" />
             </BarChart>
           )}
-          {chartType === 'scatter' && (
+          {chartType === "scatter" && (
             <ScatterChart>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="x" name={selectedColumnX} />
               <YAxis dataKey="y" name={selectedColumnY} />
-              <RechartsTooltip cursor={{ strokeDasharray: '3 3' }} />
+              <RechartsTooltip cursor={{ strokeDasharray: "3 3" }} />
               <Legend />
-              <Scatter name={`${selectedColumnX} vs ${selectedColumnY}`} data={chartData} fill="#8884d8" />
+              <Scatter
+                name={`${selectedColumnX} vs ${selectedColumnY}`}
+                data={chartData}
+                fill="#8884d8"
+              />
             </ScatterChart>
           )}
-          {chartType === 'pie' && (
+          {chartType === "pie" && (
             <PieChart>
               <Pie
                 data={chartData}
@@ -164,14 +230,17 @@ const DataVisualization = ({ data }) => {
                 label
               >
                 {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={`hsl(${index * 45}, 70%, 60%)`} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={`hsl(${index * 45}, 70%, 60%)`}
+                  />
                 ))}
               </Pie>
               <RechartsTooltip />
               <Legend />
             </PieChart>
           )}
-          {chartType === 'line' && (
+          {chartType === "line" && (
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="index" />

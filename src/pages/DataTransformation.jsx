@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const DataTransformation = ({ data, setData }) => {
-  const [selectedColumn, setSelectedColumn] = useState('');
-  const [transformationType, setTransformationType] = useState('');
-  const [customValue, setCustomValue] = useState('');
+  const [selectedColumn, setSelectedColumn] = useState("");
+  const [transformationType, setTransformationType] = useState("");
+  const [customValue, setCustomValue] = useState("");
 
   const applyTransformation = () => {
     if (!data || !selectedColumn || !transformationType) return;
@@ -14,39 +20,45 @@ const DataTransformation = ({ data, setData }) => {
     let transformedData = [data[0]];
 
     switch (transformationType) {
-      case 'log':
+      case "log":
         transformedData = [
           ...transformedData,
-          ...data.slice(1).map(row => {
+          ...data.slice(1).map((row) => {
             const newRow = [...row];
             const value = parseFloat(row[columnIndex]);
-            newRow[columnIndex] = value > 0 ? Math.log(value).toFixed(4) : row[columnIndex];
+            newRow[columnIndex] =
+              value > 0 ? Math.log(value).toFixed(4) : row[columnIndex];
             return newRow;
-          })
+          }),
         ];
         break;
-      case 'normalize':
-        const values = data.slice(1).map(row => parseFloat(row[columnIndex])).filter(val => !isNaN(val));
+      case "normalize":
+        const values = data
+          .slice(1)
+          .map((row) => parseFloat(row[columnIndex]))
+          .filter((val) => !isNaN(val));
         const min = Math.min(...values);
         const max = Math.max(...values);
         transformedData = [
           ...transformedData,
-          ...data.slice(1).map(row => {
+          ...data.slice(1).map((row) => {
             const newRow = [...row];
             const value = parseFloat(row[columnIndex]);
-            newRow[columnIndex] = !isNaN(value) ? ((value - min) / (max - min)).toFixed(4) : row[columnIndex];
+            newRow[columnIndex] = !isNaN(value)
+              ? ((value - min) / (max - min)).toFixed(4)
+              : row[columnIndex];
             return newRow;
-          })
+          }),
         ];
         break;
-      case 'custom':
+      case "custom":
         transformedData = [
           ...transformedData,
-          ...data.slice(1).map(row => {
+          ...data.slice(1).map((row) => {
             const newRow = [...row];
             newRow[columnIndex] = customValue;
             return newRow;
-          })
+          }),
         ];
         break;
       default:
@@ -63,9 +75,12 @@ const DataTransformation = ({ data, setData }) => {
           <SelectValue placeholder="Select a column to transform" />
         </SelectTrigger>
         <SelectContent>
-          {data && data[0].map((header, index) => (
-            <SelectItem key={index} value={header}>{header}</SelectItem>
-          ))}
+          {data &&
+            data[0].map((header, index) => (
+              <SelectItem key={index} value={header}>
+                {header}
+              </SelectItem>
+            ))}
         </SelectContent>
       </Select>
       <Select onValueChange={setTransformationType}>

@@ -1,10 +1,29 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import DataQualityAssessment from './DataQualityAssessment';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import DataQualityAssessment from "./DataQualityAssessment";
 
 const DataUpload = ({ setData }) => {
   const [parsedData, setParsedData] = useState(null);
@@ -15,7 +34,7 @@ const DataUpload = ({ setData }) => {
 
     reader.onload = (e) => {
       const text = e.target.result;
-      const rows = text.split('\n').map(row => row.split(','));
+      const rows = text.split("\n").map((row) => row.split(","));
       setParsedData(rows);
       setData(rows);
     };
@@ -44,10 +63,14 @@ const DataUpload = ({ setData }) => {
             <DialogHeader>
               <DialogTitle>How Data Upload Works</DialogTitle>
               <DialogDescription>
-                1. Select a CSV file from your computer.<br/>
-                2. The file is read and parsed into a table format.<br/>
-                3. A preview of the data is displayed.<br/>
-                4. Data quality assessment is performed automatically.<br/>
+                1. Select a CSV file from your computer.
+                <br />
+                2. The file is read and parsed into a table format.
+                <br />
+                3. A preview of the data is displayed.
+                <br />
+                4. Data quality assessment is performed automatically.
+                <br />
                 5. You can then proceed to analyze or visualize the data.
               </DialogDescription>
             </DialogHeader>
@@ -77,7 +100,14 @@ const DataUpload = ({ setData }) => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button onClick={() => { setParsedData(null); setData(null); }}>Clear Data</Button>
+                <Button
+                  onClick={() => {
+                    setParsedData(null);
+                    setData(null);
+                  }}
+                >
+                  Clear Data
+                </Button>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Remove the uploaded data</p>
