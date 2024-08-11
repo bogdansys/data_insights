@@ -5,7 +5,6 @@ import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/data_insights/",
   server: {
     host: "::",
     port: "8080",
