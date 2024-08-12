@@ -1,34 +1,23 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const DataExport = ({ data }) => {
-  const [exportFormat, setExportFormat] = useState("csv");
+  const [exportFormat, setExportFormat] = useState('csv');
 
   const exportData = () => {
     if (!data) return;
 
-    let content = "";
-    let filename = "";
+    let content = '';
+    let filename = '';
 
-    if (exportFormat === "csv") {
-      content = data.map((row) => row.join(",")).join("\n");
-      filename = "exported_data.csv";
-    } else if (exportFormat === "json") {
+    if (exportFormat === 'csv') {
+      content = data.map(row => row.join(',')).join('\n');
+      filename = 'exported_data.csv';
+    } else if (exportFormat === 'json') {
       const headers = data[0];
-      const jsonData = data.slice(1).map((row) => {
+      const jsonData = data.slice(1).map(row => {
         const obj = {};
         headers.forEach((header, index) => {
           obj[header] = row[index];
@@ -36,12 +25,12 @@ const DataExport = ({ data }) => {
         return obj;
       });
       content = JSON.stringify(jsonData, null, 2);
-      filename = "exported_data.json";
+      filename = 'exported_data.json';
     }
 
-    const blob = new Blob([content], { type: "text/plain" });
+    const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = url;
     link.download = filename;
     link.click();
