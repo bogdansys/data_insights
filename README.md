@@ -9,6 +9,8 @@ ML and Data Insights Hub is a comprehensive web application for data analysis, v
 - Data Quality Assessment: Analyze data completeness and identify quality issues
 - Dark Mode: Toggle between light and dark themes for comfortable viewing
 
+### Live app: https://data-insights-j4jp686bi-bogdansys-projects.vercel.app/
+
 ## Running Locally
 
 To run this project on your local machine:
