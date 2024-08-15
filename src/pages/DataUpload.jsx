@@ -23,6 +23,28 @@ const DataUpload = ({ setData }) => {
     reader.readAsText(file);
   };
 
+  const generateSampleCSV = () => {
+    const headers = ["Name", "Age", "Email"];
+    const rows = [
+      ["John Doe", "30", "john@example.com"],
+      ["Jane Smith", "25", "jane@example.com"],
+      ["Sam Johnson", "40", "sam@example.com"]
+    ];
+    const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+    return csvContent;
+  };
+
+ const downloadSampleCSV = () => {
+   const filePath = '/sample_customer_data.csv';
+   const link = document.createElement("a");
+   link.href = filePath;
+   link.setAttribute("download", "sample_customer_data.csv");
+   link.style.visibility = 'hidden';
+   document.body.appendChild(link);
+   link.click();
+   document.body.removeChild(link);
+ };
+
   return (
     <div className="space-y-2 sm:space-y-4">
       <div className="space-y-2 sm:space-y-4">
@@ -36,6 +58,7 @@ const DataUpload = ({ setData }) => {
                     <Button variant="outline" className="w-full sm:w-auto">How does it work?</Button>
                   </DialogTrigger>
                 </Dialog>
+                <Button onClick={downloadSampleCSV} className="w-full sm:w-auto">Download Test Data</Button>
               </div>
             </TooltipTrigger>
             <TooltipContent>
