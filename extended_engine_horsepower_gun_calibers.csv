@@ -1,16 +1,16 @@
-Engine Horsepower (HP),Gun Caliber (inches/mm),Whiskey Name,Barrels Sold,Car Model,Top Speed (mph),Fighter Jet,Operational Range (miles)
-100,0.22/5.56,Glenfiddich,5000,Ford Mustang,155,F-22 Raptor,1839
-150,0.30/7.62,Macallan,7500,Chevrolet Camaro,165,F-35 Lightning,1379
-200,0.38/9.65,Lagavulin,6000,Dodge Challenger,170,Su-57,2174
-250,0.45/11.43,Ardbeg,5500,BMW M4,180,Eurofighter Typhoon,1437
-300,0.50/12.7,Laphroaig,8000,Audi RS5,190,Rafale,1151
-350,0.75/19.05,Glenlivet,6500,Mercedes-AMG C63,155,F/A-18 Hornet,1275
-400,1.0/25.4,Bowmore,7000,Porsche 911,200,MiG-29,888
-450,1.2/30.48,Dalmore,7200,Nissan GT-R,205,J-20,1200
-500,1.5/38.1,Highland Park,7300,Jaguar F-Type,195,Gripen,497
-550,2.0/50.8,Talisker,6800,Lexus LC500,180,F-16 Falcon,2600
-600,3.0/76.2,Oban,7100,Aston Martin Vantage,210,F-15 Eagle,3450
-650,4.0/101.6,Glenmorangie,6900,Ferrari 488,205,Su-35,2240
-700,5.0/127,Balvenie,6600,Lamborghini Huracan,212,Mirage 2000,926
-750,6.0/152.4,Springbank,6700,McLaren 720S,220,J-31,780
-800,8.0/203.2,Bruichladdich,7500,Bugatti Chiron,261,F-117 Nighthawk,1070
+Engine Horsepower (HP),Car Model,Top Speed (mph),Gun Caliber (inches/mm),Whiskey Name,Barrels Sold,Fighter Jet,Operational Range (miles)
+100,Ford Mustang,155,0.22/5.56,Glenfiddich,5000,F-22 Raptor,1839
+150,Chevrolet Camaro,165,0.30/7.62,Macallan,7500,F-35 Lightning,1379
+200,Dodge Challenger,170,0.38/9.65,Lagavulin,6000,Su-57,2174
+250,BMW M4,180,0.45/11.43,Ardbeg,5500,Eurofighter Typhoon,1437
+300,Audi RS5,190,0.50/12.7,Laphroaig,8000,Rafale,1151
+350,Mercedes-AMG C63,155,0.75/19.05,Glenlivet,6500,F/A-18 Hornet,1275
+400,Porsche 911,200,1.0/25.4,Bowmore,7000,MiG-29,888
+450,Nissan GT-R,205,1.2/30.48,Dalmore,7200,J-20,1200
+500,Jaguar F-Type,195,1.5/38.1,Highland Park,7300,Gripen,497
+550,Lexus LC500,180,2.0/50.8,Talisker,6800,F-16 Falcon,2600
+600,Aston Martin Vantage,210,3.0/76.2,Oban,7100,F-15 Eagle,3450
+650,Ferrari 488,205,4.0/101.6,Glenmorangie,6900,Su-35,2240
+700,Lamborghini Huracan,212,5.0/127,Balvenie,6600,Mirage 2000,926
+750,McLaren 720S,220,6.0/152.4,Springbank,6700,J-31,780
+800,Bugatti Chiron,261,8.0/203.2,Bruichladdich,7500,F-117 Nighthawk,1070
