@@ -1,0 +1,16 @@
+CustomerID,Age,Gender,Annual Income (k$),Spending Score (1-100),Membership Duration (years),Product Preference
+1,25,Male,45,77,3,Electronics
+2,34,Female,60,54,5,Clothing
+3,22,Female,35,23,2,Groceries
+4,45,Male,80,89,7,Electronics
+5,30,Female,75,65,4,Beauty
+6,50,Male,90,81,8,Clothing
+7,28,Female,50,39,3,Groceries
+8,40,Male,120,96,6,Electronics
+9,36,Female,65,58,5,Beauty
+10,23,Male,55,44,2,Clothing
+11,29,Female,70,79,3,Beauty
+12,42,Male,85,92,7,Groceries
+13,33,Female,40,50,4,Electronics
+14,27,Male,60,73,3,Clothing
+15,31,Female,45,68,5,Beauty
