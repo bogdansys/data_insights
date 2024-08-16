@@ -56,7 +56,7 @@ const DataQualityAssessment = ({ csvData }) => {
 
     // Detect outliers using IQR method for numeric columns
     headers.forEach((header) => {
-      const columnData = columnData = parsedData.map(row => parseFloat(row[header])).filter(val => !isNaN(val));
+      const columnData = parsedData.map(row => parseFloat(row[header])).filter(val => !isNaN(val));
       if (columnData.length > 0) {
         const sortedData = columnData.sort((a, b) => a - b);
         const q1 = sortedData[Math.floor(sortedData.length / 4)];

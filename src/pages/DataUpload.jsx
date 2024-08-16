@@ -4,10 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { HelpCircle, Upload } from "lucide-react";
 import DataQualityAssessment from './DataQualityAssessment';
 
 const DataUpload = ({ setData }) => {
   const [parsedData, setParsedData] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -23,42 +25,18 @@ const DataUpload = ({ setData }) => {
     reader.readAsText(file);
   };
 
-  const generateSampleCSV = () => {
-    const headers = ["Name", "Age", "Email"];
-    const rows = [
-      ["John Doe", "30", "john@example.com"],
-      ["Jane Smith", "25", "jane@example.com"],
-      ["Sam Johnson", "40", "sam@example.com"]
-    ];
-    const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
-    return csvContent;
-  };
-
- const downloadSampleCSV = () => {
-   const filePath = '/sample_customer_data.csv';
-   const link = document.createElement("a");
-   link.href = filePath;
-   link.setAttribute("download", "sample_customer_data.csv");
-   link.style.visibility = 'hidden';
-   document.body.appendChild(link);
-   link.click();
-   document.body.removeChild(link);
- };
-
   return (
-    <div className="space-y-2 sm:space-y-4">
-      <div className="space-y-2 sm:space-y-4">
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4">
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <Input type="file" accept=".csv" onChange={handleFileUpload} className="flex-grow" />
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="outline" className="w-full sm:w-auto">How does it work?</Button>
-                  </DialogTrigger>
-                </Dialog>
-                <Button onClick={downloadSampleCSV} className="w-full sm:w-auto">Download Test Data</Button>
+              <div className="relative">
+                <Input type="file" accept=".csv" onChange={handleFileUpload} className="hidden" id="file-upload" />
+                <label htmlFor="file-upload" className="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  <Upload className="mr-2 h-5 w-5" />
+                  Upload CSV
+                </label>
               </div>
             </TooltipTrigger>
             <TooltipContent>
@@ -66,45 +44,62 @@ const DataUpload = ({ setData }) => {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button variant="outline">
+              How does it work? <HelpCircle className="ml-2 h-4 w-4" />
+            </Button>
+          </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>How Data Upload Works</DialogTitle>
               <DialogDescription>
-                1. Select a CSV file from your computer.<br/>
-                2. The file is read and parsed into a table format.<br/>
-                3. A preview of the data is displayed.<br/>
-                4. Data quality assessment is performed automatically.<br/>
-                5. You can then proceed to analyze or visualize the data.
+                <ol className="list-decimal list-inside space-y-2">
+                  <li>Select a CSV file from your computer using the file input.</li>
+                  <li>The file is read and parsed into a table format.</li>
+                  <li>A preview of the data is displayed below the upload button.</li>
+                  <li>Data quality assessment is performed automatically.</li>
+                  <li>You can then proceed to analyze or visualize the data using other tools in the application.</li>
+                </ol>
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
         </Dialog>
       </div>
       {parsedData && (
-        <>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                {parsedData[0].map((header, index) => (
-                  <TableHead key={index}>{header}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {parsedData.slice(1, 6).map((row, rowIndex) => (
-                <TableRow key={rowIndex}>
-                  {row.map((cell, cellIndex) => (
-                    <TableCell key={cellIndex}>{cell}</TableCell>
+        <div className="space-y-6">
+          <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div className="px-4 py-5 sm:px-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">Data Preview</h3>
+              <p className="mt-1 max-w-2xl text-sm text-gray-500">First 5 rows of uploaded data</p>
+            </div>
+            <div className="border-t border-gray-200">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    {parsedData[0].map((header, index) => (
+                      <TableHead key={index}>{header}</TableHead>
+                    ))}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {parsedData.slice(1, 6).map((row, rowIndex) => (
+                    <TableRow key={rowIndex}>
+                      {row.map((cell, cellIndex) => (
+                        <TableCell key={cellIndex}>{cell}</TableCell>
+                      ))}
+                    </TableRow>
                   ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                </TableBody>
+              </Table>
+            </div>
+          </div>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button onClick={() => { setParsedData(null); setData(null); }}>Clear Data</Button>
+                <Button onClick={() => { setParsedData(null); setData(null); }} variant="destructive">
+                  Clear Data
+                </Button>
               </TooltipTrigger>
               <TooltipContent>
                 <p>Remove the uploaded data</p>
@@ -112,7 +107,7 @@ const DataUpload = ({ setData }) => {
             </Tooltip>
           </TooltipProvider>
           <DataQualityAssessment data={parsedData} />
-        </>
+        </div>
       )}
     </div>
   );
